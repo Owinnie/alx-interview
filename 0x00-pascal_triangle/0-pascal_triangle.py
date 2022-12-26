@@ -3,7 +3,7 @@
 
 
 def pascal_triangle(n):
-    """ 
+    """
     Args:
     ----
         n: int
