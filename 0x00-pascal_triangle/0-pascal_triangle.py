@@ -14,7 +14,7 @@ def pascal_triangle(n):
     """
     ls = []
     if n <= 0:
-        return []
+        return ls
     else:
         for i in range(n):
             ans = (','.join(map(str, str(11**i))))
