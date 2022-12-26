@@ -11,10 +11,14 @@ def pascal_triangle(n):
     -------
         List of lists of int representing Pascal's triangle
     """
-
+    ls = []
     if n <= 0:
         return []
     else:
         for i in range(n):
-            #print(' '*(n-i), end='')
-            print([','.join(map(str, str(11**i)))])
+            ans = (','.join(map(str, str(11**i))))
+            for ele in ans:
+                if ele != ',':
+                    ls.append(int(ele))
+            print(ls)
+            ls.clear()
