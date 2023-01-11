@@ -10,7 +10,7 @@ def minOperations(n):
     Returns:
         integer of 0 if impossible
     """
-    pasted = 1  # how many chars in the file
+    pasted = 1  # chars present in the file
     copied = 0
     operations = 0  # counter
 
