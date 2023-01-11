@@ -30,7 +30,7 @@ def minOperations(n):
         #
         rem = n - pasted
 
-        if rem < clipboard:
+        if rem < copied:
             return 0
 
         if rem % pasted != 0:
