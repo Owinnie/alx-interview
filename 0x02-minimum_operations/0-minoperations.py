@@ -45,4 +45,5 @@ def minOperations(n):
         if pasted == n:
             return operations
 
-        return 0
+        else:
+            return 0
