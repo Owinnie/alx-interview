@@ -15,6 +15,34 @@ def minOperations(n):
     operations = 0
     
     while pasted < n:
-      ...
     
-    return 0
+        # copy operation
+        if copied == 0:
+            copied = pasted
+            operations += 1
+      
+        # paste operation
+        if pasted == 1:
+            pasted += copied
+            operations += 1
+            continue
+          
+        #
+        rem = n - pasted
+      
+        if rem < clipboard:
+            return 0
+          
+        if rem % pasted !=0
+            pasted += copied
+            operations += 1
+          
+        else:
+            copied = pasted
+            pasted += copied
+            operations += 2
+          
+        if pasted == n:
+            return operations
+    
+        return 0
