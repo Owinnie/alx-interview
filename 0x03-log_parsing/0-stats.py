@@ -23,10 +23,10 @@ try:
 
         if count == 10:
             count -= count  # reset count
-            print(f"File size: {total_size}")
+            print("File size: {}".format(total_size))
             for k, v in sorted(s_codes.items()):
                 if v != 0:
-                    print(f"{k}: {v}")
+                    print("{}: {}".format(k, v))
 
 except Exception as e:
     pass
@@ -35,5 +35,4 @@ finally:
     print(f"File size: {total_size}")
     for k, v in sorted(s_codes.items()):
         if v != 0:
-            print(f"{k}: {v}")
-
+            print("{}: {}".format(k, v))
