@@ -27,7 +27,7 @@ try:
                 if v != 0:
                     print('{}: {}'.format(k, v))
 
-except Exception as e:
+except Exception as error:
     pass
 
 finally:
