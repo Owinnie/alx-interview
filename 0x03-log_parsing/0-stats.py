@@ -21,7 +21,7 @@ try:
             count += 1
 
         if count == 10:
-            count -= count  # reset count
+            count = 0
             print('File size: {}'.format(total_size))
             for k, v in sorted(s_codes.items()):
                 if v != 0:
