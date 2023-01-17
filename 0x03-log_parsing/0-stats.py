@@ -13,8 +13,8 @@ try:
     for line in sys.stdin:
         ls_line = line.split(" ")
         if len(ls_line) > 4:
-            file_size = int(ls_line[-1])
             code = ls_line[-2]
+            file_size = int(ls_line[-1])
             if code in s_codes.keys():
                 s_codes[code] += 1
             total_size += file_size
