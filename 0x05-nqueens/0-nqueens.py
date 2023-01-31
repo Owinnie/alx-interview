@@ -22,36 +22,67 @@ if n < 4:
     print("N must be at least 4")
     exit(1)
 
-col = set()
-pos = set()  # row + column
-neg = set()  # rom - column
+solutions = []
+placed_queens = []
+stop = False
+r = 0
+c = 0
 
-result = []
-board = [["0"] * n for i in range(n)]
+while r < n:
+    goback = False
+    while c < n:
+        safe = True
+        for cord in placed_queens:
+            col = cord[1]
+            if(col == c or col + (r-cord[0]) == c or
+                    col - (r-cord[0]) == c):
+                safe = False
+                break
 
-
-def btrack(r):
-    if r == n:
-        cp = ["".join(row) for row in board]
-        result.append(cp)
-        return
-
-    for c in range(n):
-        if c in col or (r + c) in pos or (r - c) in neg:
+        if not safe:
+            if c == n - 1:
+                goback = True
+                break
+            c += 1
             continue
 
-        col.add(c)
-        pos.add(r + c)
-        neg.add(r - c)
-        board[r][c] = "Q"
+        cords = [r, c]
+        placed_queens.append(cords)
 
-        btrack(r + 1)
+        if r == n - 1:
+            solutions.append(placed_queens[:])
+            for cord in placed_queens:
+                if cord[1] < n - 1:
+                    r = cord[0]
+                    c = cord[1]
+            for i in range(n - r):
+                placed_queens.pop()
+            if r == n - 1 and c == n - 1:
+                placed_queens = []
+                stop = True
+            r -= 1
+            c += 1
+        else:
+            c = 0
+        break
+    if stop:
+        break
 
-        col.remove(c)
-        pos.remove(r + c)
-        neg.remove(r - c)
-        board[r][c] = "0"
+    if goback:
+        r -= 1
+        while r >= 0:
+            c = placed_queens[r][1] + 1
+            del placed_queens[r]
+            if c < n:
+                break
+            r -= 1
+        if r < 0:
+            break
+        continue
+    r += 1
 
-
-btrack(0)
-print(result)
+for idx, val in enumerate(solutions):
+    if idx == len(solutions) - 1:
+        print(val, end='')
+    else:
+        print(val)
