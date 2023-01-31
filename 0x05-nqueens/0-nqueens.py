@@ -29,6 +29,7 @@ neg = set()  # rom - column
 result = []
 board = [["0"] * n for i in range(n)]
 
+
 def btrack(r):
     if r == n:
         cp = ["".join(row) for row in board]
@@ -50,5 +51,7 @@ def btrack(r):
         pos.remove(r + c)
         neg.remove(r - c)
         board[r][c] = "0"
+
+
 btrack(0)
 print(result)
