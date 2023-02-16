@@ -11,11 +11,11 @@ Given an n x n 2D matrix, rotate it 90 degrees clockwise.
 
 def rotate_2d_matrix(matrix):
     """ 0. Rotate 2D Matrix """
-    n = len(matrix)
+    n = len(matrix[0])
     x = n // 2
     y = n - 1
     for i in range(x):
-        for j in range(y - i):
+        for j in range(i, y - i):
             k = matrix[i][j]
             matrix[i][j] = matrix[y - j][i]
             matrix[y - j][i] = matrix[y - i][y - j]
