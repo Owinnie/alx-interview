@@ -21,8 +21,6 @@ def makeChange(coins, total):
     """0. Change comes from within"""
     if total <= 0:
         return 0
-    elif sum(coins) != total:
-        return -1
     else:
         count = 0
         for c in coins:
