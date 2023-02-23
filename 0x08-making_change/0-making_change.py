@@ -19,28 +19,11 @@ to meet a given amount total.
 
 def makeChange(coins, total):
     """0. Change comes from within"""
-    if total <= 0:
-        return 0
-    elif sum(coins) != total:
-        return -1
-    else:
-        count = 0
+    dp = [total + 1] * (total + 1)
+    dp[0] = 0
+
+    for a in range(1, total + 1):
         for c in coins:
-            if c == total:
-                count += 1
-                return count
-        for i in range(len(coins)):
-            for j in range(i + 1, len(coins)):
-                summed = coins[i] + coins[j]
-                if summed == total:
-                    count += 2
-                    return count
-                else:
-                    diff = total - summed
-                    for c in coins:
-                        if c == diff:
-                            count += 3
-                            return count
-                    total = diff
-                    count += 2
-    return count
+            if (a - c) >= 0:
+                dp[a] = min(dp[a], 1 + dp[a - c])
+    return dp[total] if dp[total] != total + 1 else -1
