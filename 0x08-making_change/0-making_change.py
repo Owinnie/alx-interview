@@ -42,5 +42,5 @@ def makeChange(coins, total):
                             count += 3
                             return count
                     total = diff
-                    count += 1
+                    count += 2
     return count
