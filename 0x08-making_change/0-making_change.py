@@ -19,9 +19,6 @@ to meet a given amount total.
 
 def makeChange(coins, total):
     """0. Change comes from within"""
-    dp = [total + 1] * (total + 1)
-    dp[0] = 0
-
     if total <= 0:
         return 0
     elif sum(coins) != total:
@@ -32,7 +29,9 @@ def makeChange(coins, total):
             if c == total:
                 count += 1
                 return count
-
+        
+        dp = [total + 1] * (total + 1)
+        dp[0] = 0
         for a in range(1, total + 1):
             for c in coins:
                 if (a - c) >= 0:
