@@ -25,7 +25,7 @@ def island_perimeter(grid):
         # Base case
         if i >= len(grid) or j >= len(grid[0]) or i < 0 or j < 0 or\
                 grid[i][j] == 0:
-                    return 1
+            return 1
         if (i, j) in visited:
             return 0
 
