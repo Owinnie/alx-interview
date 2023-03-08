@@ -46,43 +46,50 @@ Result: Ben has the most wins
 
 def isWinner(x, nums):
     """0.Prime Game"""
-    m_count = b_count = 0
-    m_choice = b_choice = 1
-    prime_ls = []
+    max_n = max(nums)
+    primes = [True] * (max_n + 1)
+    primes[0] = primes[1] = False
+    for i in range(2, int(max_n**0.5) + 1):
+        if primes[i]:
+            for j in range(i**2, max_n+1, i):
+                primes[j] = False
 
-    while x <= 10_000:
-        for n in nums:
-            ls = list(range(n + 1))[1:]
-            for no in ls:
-                if no > 1 and no % no == 0 and no % 1 == 0:
-                    prime_ls.append(no)
-            for i in range(len(prime_ls)):
-                if i < len(prime_ls) and m_choice in prime_ls\
-                        and prime_ls.index(m_choice)\
-                        < len(prime_ls) and b_choice in prime_ls\
-                        and prime_ls.index(b_choice)\
-                        < len(prime_ls):
-                    if prime_ls[i] == m_choice:
-                        for p_nums2 in prime_ls:
-                            if p_nums2 % prime_ls[i] == 0:
-                                prime_ls.remove(p_nums2)
-                        prime_ls.remove(prime_ls[i])
-                        m_count += 1
-                    elif prime_ls[i] != m_choice:
-                        m_choice = prime_ls[i + 2]
-                    if prime_ls[i] in prime_ls:
-                        if prime_ls[i] == b_choice:
-                            for p_nums2 in prime_ls:
-                                if p_nums2 % prime_ls[i] == 0:
-                                    prime_ls.remove(p_nums2)
-                            prime_ls.remove(prime_ls[i])
-                            b_count += 1
-                    else:
-                        b_choice = prime_ls[i + 1]
-    if m_count > b_count:
+    # Count wins for each player
+    wins = {"Maria": 0, "Ben": 0}
+    for n in nums:
+        prime_set = set()
+        for i in range(2, n+1):
+            if primes[i]:
+                prime_set.add(i)
+
+        current_player = "Maria"
+        while prime_set:
+            can_move = False
+            for prime in prime_set:
+                if n % prime == 0:
+                    prime_set.discard(prime)
+                    for multiple in range(prime, n+1, prime):
+                        prime_set.discard(multiple)
+                    can_move = True
+                    break
+
+            if not can_move:
+                break
+
+            if current_player == "Maria":
+                current_player = "Ben"
+            else:
+                current_player = "Maria"
+
+        if current_player == "Maria":
+            wins["Ben"] += 1
+        else:
+            wins["Maria"] += 1
+
+    # Determine winner
+    if wins["Maria"] > wins["Ben"]:
         return "Maria"
-    elif m_count < b_count:
+    elif wins["Ben"] > wins["Maria"]:
         return "Ben"
     else:
         return None
-
