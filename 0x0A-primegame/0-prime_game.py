@@ -46,50 +46,44 @@ Result: Ben has the most wins
 
 def isWinner(x, nums):
     """0.Prime Game"""
-    max_n = max(nums)
-    primes = [True] * (max_n + 1)
-    primes[0] = primes[1] = False
-    for i in range(2, int(max_n**0.5) + 1):
-        if primes[i]:
-            for j in range(i**2, max_n+1, i):
-                primes[j] = False
+    def is_prime(n):
+        if n < 2:
+            return False
+        for i in range(2, int(n ** 0.5) + 1):
+            if n % i == 0:
+                return False
+        return True
 
-    # Count wins for each player
-    wins = {"Maria": 0, "Ben": 0}
-    for n in nums:
-        prime_set = set()
+    def get_primes(n):
+        primes = []
         for i in range(2, n+1):
-            if primes[i]:
-                prime_set.add(i)
+            if is_prime(i):
+                primes.append(i)
+        return primes
 
-        current_player = "Maria"
-        while prime_set:
-            can_move = False
-            for prime in prime_set:
-                if n % prime == 0:
-                    prime_set.discard(prime)
-                    for multiple in range(prime, n+1, prime):
-                        prime_set.discard(multiple)
-                    can_move = True
-                    break
-
-            if not can_move:
-                break
-
-            if current_player == "Maria":
-                current_player = "Ben"
+    # Play each round of the game and keep track of the winner
+    maria_wins = 0
+    ben_wins = 0
+    for n in nums:
+        primes = get_primes(n)
+        maria_turn = True
+        while primes:
+            p = primes.pop(0)
+            if maria_turn:
+                maria_turn = False
             else:
-                current_player = "Maria"
-
-        if current_player == "Maria":
-            wins["Ben"] += 1
+                maria_turn = True
+            multiples = [i for i in range(p, n+1, p)]
+            primes = [prime for prime in primes if prime not in multiples]
+        if maria_turn:
+            ben_wins += 1
         else:
-            wins["Maria"] += 1
+            maria_wins += 1
 
-    # Determine winner
-    if wins["Maria"] > wins["Ben"]:
+    # Determine the overall winner of the game
+    if maria_wins > ben_wins:
         return "Maria"
-    elif wins["Ben"] > wins["Maria"]:
+    elif ben_wins > maria_wins:
         return "Ben"
     else:
         return None
